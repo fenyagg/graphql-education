@@ -3,6 +3,7 @@ import { onError } from '@apollo/client/link/error';
 import React, { FC } from 'react';
 import { useSnackbar } from 'notistack';
 
+// mock data https://anilist.gitbook.io/anilist-apiv2-docs/overview/graphql/pagination
 const httpLink = new HttpLink({
   uri: 'https://graphql.anilist.co',
   /*headers: {
@@ -13,7 +14,6 @@ const httpLink = new HttpLink({
 export const MyApolloProvider: FC = ({ children }) => {
   const { enqueueSnackbar } = useSnackbar();
   const errorLink = onError(({ graphQLErrors, networkError }) => {
-    // my error handling logic
     if (graphQLErrors) {
       const errorString = graphQLErrors.map((error) => error.message);
       enqueueSnackbar(errorString, {
