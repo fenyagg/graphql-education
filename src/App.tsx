@@ -1,24 +1,63 @@
+import { Link } from '@material-ui/core';
+import { LazyQuery } from 'components/lazyQuery';
+import { Query } from 'components/query';
+import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+enum Paths {
+  QUERY = '/',
+  LAZY = '/lazy',
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="App"
+      style={{
+        width: 500,
+        margin: 'auto',
+      }}
+    >
+      <Router>
+        <nav style={{ marginBottom: 30 }}>
+          <Link
+            component={NavLink}
+            to={Paths.QUERY}
+            exact={true}
+            style={{
+              textDecoration: 'underline',
+            }}
+            activeStyle={{
+              cursor: 'default',
+              textDecoration: 'none',
+            }}
+          >
+            Query
+          </Link>
+          &nbsp;&nbsp;
+          <Link
+            component={NavLink}
+            to={Paths.LAZY}
+            style={{
+              textDecoration: 'underline',
+            }}
+            activeStyle={{
+              cursor: 'default',
+              textDecoration: 'none',
+            }}
+          >
+            Lazy
+          </Link>
+        </nav>
+        <Switch>
+          <Route exact={true} path={Paths.QUERY}>
+            <Query />
+          </Route>
+          <Route exact={true} path={Paths.LAZY}>
+            <LazyQuery />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
